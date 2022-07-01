@@ -14,25 +14,38 @@ struct ListNode {
 };
 
 struct ListNode* removeElements(struct ListNode* head, int val) {
-    if (head == NULL)//如果链表空返回NULL
+    if (!head) return NULL;
+    struct ListNode* a = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode* pre = NULL;
+    struct ListNode* cur = head;
+    struct ListNode* p = NULL;
+    if (a)
     {
-        return head;
+        a->next = head;
+        pre = a;
     }
-    struct ListNode* headNode = (ListNode*)malloc(sizeof(struct ListNode));//申请虚拟头
-    headNode->next = head;
-    struct ListNode* pre = headNode;//当前需要比较值的节点的前一个节点
-    while (pre->next != NULL)
-    {
-        if (pre->next->val == val)
-        {
-            pre->next = pre->next->next;
+    while (cur) {
+        if (cur->val == val) {
+            p = cur;
+            pre->next = cur->next;
+            cur = cur->next;
+            free(p);
+            p = NULL;
         }
-        else
-        {
-            pre = pre->next;
+        else {
+            pre = cur;
+            cur = cur->next;
         }
     }
-    return headNode->next;
+    if (a->next == NULL) {
+        free(a);
+        a = NULL;
+        return NULL;
+    }
+    struct ListNode* HEAD = a->next;
+    free(a);
+    a = NULL;
+    return HEAD;
 }
 
 int main()
