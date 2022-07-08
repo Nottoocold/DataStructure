@@ -20,7 +20,7 @@
  };
  
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
-    struct ListNode* head, * tail;
+    struct ListNode* head, * tail = NULL;
     head = (struct ListNode*)malloc(sizeof(struct ListNode));
     if (head)
     {
