@@ -1,7 +1,8 @@
 #include "function.h"
+BiTNode *p = nullptr, *q = nullptr;
 /*找出给定节点p和q的最近公告祖先*/
 /*所有节点都是唯一的不会重复,且不是NULL*/
-//从p出发能否找到q
+//判断从p出发能否找到q
 int Find(BiTree p, BiTree q)
 {
     if (!p)
@@ -17,8 +18,8 @@ int Find(BiTree p, BiTree q)
         return Find(p->rchild, q);
     }
 }
-
-BiTNode* FindParaent(BiTree root, BiTree p)
+//返回p的双亲节点
+BiTNode *FindParaent(BiTree root, BiTree p)
 {
     if ((root->lchild != nullptr && root->lchild->data == p->data) || (root->rchild != nullptr && root->rchild->data == p->data))
         return root;
@@ -31,8 +32,8 @@ BiTNode* FindParaent(BiTree root, BiTree p)
         return FindParaent(root->rchild, p);
     }
 }
-
-BiTNode* lowestCommonAncestor(BiTree root,BiTree p,BiTree q)
+//求以root为根，p和q的最近公共祖先
+BiTNode *lowestCommonAncestor(BiTree root, BiTree p, BiTree q)
 {
     if (Find(p, q))
     {
@@ -58,6 +59,48 @@ BiTNode* lowestCommonAncestor(BiTree root,BiTree p,BiTree q)
         }
         p_pa = FindParaent(root, p_pa);
         q_pa = FindParaent(root, q_pa);
+    }
+    return root;
+}
+
+BiTNode *createNode(int val)
+{
+    BiTNode *pp = (BiTNode *)calloc(1, sizeof(BiTNode));
+    pp->data = val;
+    if (val == 2)
+        p = pp;
+    if (val == 4)
+        q = pp;
+    return pp;
+}
+//构建二叉搜索树
+BiTNode *insertIntoBST(BiTNode *&root, int val)
+{
+    if (!root)
+    { // kongshu
+        return createNode(val);
+    }
+    if (val < root->data)
+    {
+        if (root->lchild == NULL)
+        {
+            root->lchild = createNode(val);
+        }
+        else
+        {
+            insertIntoBST(root->lchild, val);
+        }
+    }
+    else if (val > root->data)
+    {
+        if (root->rchild == NULL)
+        {
+            root->rchild = createNode(val);
+        }
+        else
+        {
+            insertIntoBST(root->rchild, val);
+        }
     }
     return root;
 }
