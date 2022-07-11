@@ -1,7 +1,5 @@
-#include <iostream>
+#include "head.h"
 #include <stdlib.h>
-
-using namespace std;
 
 int cmp(const void* x, const void* y)
 {
@@ -26,16 +24,3 @@ int* sortedSquares(int* nums, int numsSize, int &returnSize){
     return ret;
 }
 
-int main()
-{
-    int num[] = {2,-1,3,4};
-    int retSize;
-    int* ret = sortedSquares(num,4,retSize);
-    int* last = ret + retSize - 1;
-    while(last >= ret)
-    {
-        cout << *last << " ";
-        last--;
-    }
-    return 0;
-}

@@ -1,5 +1,4 @@
-#include <iostream>
-using namespace std;
+#include "head.h"
 /*轮换数组k次*/
 void swap( int* x,  int* y)
 {
@@ -23,13 +22,3 @@ void rotate(int* nums, int numsSize, int k){
     }
 }
 
-int main()
-{
-    int a[] = {-1,-100,3,99};
-    rotate(a,4,2);
-    for(int i : a)
-    {
-        cout << i << " ";
-    }
-    return 0;
-}
