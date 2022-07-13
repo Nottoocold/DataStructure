@@ -15,48 +15,30 @@ public class Solution2 {
 			List<List<Integer>> list = new ArrayList<>();
 			return list;
 		}
-		Arrays.sort(nums);// 升序排序数组
+		Arrays.sort(nums);// 快速排序
 		// -4 -1 -1 0 1 2
 		List<List<Integer>> ret = new ArrayList<>();
-		int third = 0;// 记录第三个数
-		int pre = nums[0];// 记录之前一次的第三个数
-		for (int i = 0; i < nums.length - 2; ++i) {
-			if (i != 0) {// 如果不是第一个元素
-				if (nums[i - 1] == nums[i]) {
+		int third;// 记录第三个数
+		for (int i = 0; i < nums.length - 2; ++i) {// 枚举第一个数
+			if (i > 0 && nums[i] == nums[i - 1])// 防止此次枚举的i和上一次相等
+				continue;
+			for (int j = i + 1; j < nums.length; ++j) {// 枚举第二个数
+				if (j > i + 1 && nums[j] == nums[j - 1])// 防止此次枚举的j和上一次相等
 					continue;
-				}
-			}
-			for (int j = i + 1; j < nums.length; ++j) {
 				third = 0 - nums[j] - nums[i];// 算出满足的第三个数
-				if (pre != third) {// 若此时的第三个数和前一个不相等，防止重复
-					if (third > nums[j]) {// 二分查找
-						int index = Arrays.binarySearch(nums, j + 1, nums.length, third);
-						if (index > 0) {
-							List<Integer> list = new ArrayList<>();
-							Collections.addAll(list, nums[i], nums[j], third);
-							ret.add(list);
-						}
-					} else {
-						if (j == nums.length - 1) {
-							continue;
-						} else {// j不是最后一个元素
-							if (third == nums[j + 1]) {
-								List<Integer> list = new ArrayList<>();
-								Collections.addAll(list, nums[i], nums[j], third);
-								ret.add(list);
-							}
-						}
-					}
-					pre = third;//更新之前的第三个数
-				} else// pre!=third
-					continue;
+				int index = Arrays.binarySearch(nums, j + 1, nums.length, third);
+				if (index > 0) {
+					List<Integer> list = new ArrayList<>();
+					Collections.addAll(list, nums[i], nums[j], third);
+					ret.add(list);
+				}
 			}
 		}
 		return ret;
 	}
 
 	public static void main(String[] args) {
-		int[] a = { 0,0,0};
+		int[] a = { 0, 0, 0 };
 		List<List<Integer>> ret = thressSum(a);
 		for (List<Integer> list : ret) {
 			for (int i : list) {
