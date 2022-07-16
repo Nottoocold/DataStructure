@@ -1,0 +1,70 @@
+package com.zyc.day0716;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Solution1 {
+	/**
+	 * 色块上色问题，在以给定的行列坐标的单元的上下左右，以及被染色的单元的上下左右继续递归的染色
+	 * @param image 给定的二维矩阵
+	 * @param sr 行
+	 * @param sc 列
+	 * @param newColor 需要更新的颜色
+	 * @return
+	 */
+	static int[] dx= {1,0,0,-1};//定义上下左右移动
+	static int[] dy= {0,1,-1,0};
+	//1.广度优先遍历
+	public static int[][] floodFill_BFS(int[][] image, int sr, int sc, int newColor) {
+		int oldColor = image[sr][sc];
+		if(oldColor == newColor)
+			return image;
+		int row = image.length, col = image[0].length;
+		Queue<int[]> queue = new LinkedList<>();
+		image[sr][sc] = newColor;
+		queue.offer(new int[] {sr,sc});
+		while(!queue.isEmpty()) {
+			int[] e = queue.poll();
+			int oldx=e[0],oldy=e[1];
+			for(int i=0; i < 4; ++i) {
+				int newx = oldx + dx[i], newy = oldy + dy[i];
+				if(newx >= 0 && newx < row && newy >= 0 && newy < col && image[newx][newy] == oldColor) {
+					queue.offer(new int[] {newx,newy});
+					image[newx][newy] = newColor;
+				}
+			}
+		}
+		return image;
+	}
+	
+	public static void DFS(int[][] image, int row, int col, int oldColor, int newColor) {
+		if(row >= 0 && row < image.length && col >= 0 && col < image[0].length) {
+			if(image[row][col] == oldColor) {
+				image[row][col] = newColor;
+				DFS(image, row + 1, col, oldColor, newColor);//下
+				DFS(image, row, col + 1, oldColor, newColor);//右
+				DFS(image, row, col - 1, oldColor, newColor);//左
+				DFS(image, row - 1, col, oldColor, newColor);//上
+			}			
+		}
+	}
+	
+	//2.深度优先遍历
+	public static int[][] floodFill_DFS(int[][] image, int sr, int sc, int newColor) {
+		int old = image[sr][sc];
+		if(old != newColor) {
+			DFS(image, sr, sc, old, newColor);
+		}
+		return image;
+	}
+	
+	public static void main(String[] args) {
+		int image[][] = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 }};
+		//image = floodFill_BFS(image, 1, 1, 2);
+		image = floodFill_DFS(image, 1, 1, 0);
+		for(int[] row : image) {
+			System.out.println(Arrays.toString(row));
+		}
+	}
+}
