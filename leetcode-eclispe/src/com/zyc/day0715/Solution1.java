@@ -29,7 +29,7 @@ public class Solution1 {
 					break;
 				}
 			}
-			length = Math.max(length, j - i);
+			length = Math.max(length, j - i);//计算前一个最长子串的长度和当前长度谁更大
 			// set.removeAll(set);
 			set.remove(s.charAt(++i - 1));//移除队列中重复的元素
 		}
