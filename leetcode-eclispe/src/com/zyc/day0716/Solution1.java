@@ -13,24 +13,24 @@ public class Solution1 {
 	 * @param newColor 需要更新的颜色
 	 * @return
 	 */
-	static int[] dx= {1,0,0,-1};//定义上下左右移动
+	static int[] dx= {1,0,0,-1};//定义下右左上 四个方向的数组
 	static int[] dy= {0,1,-1,0};
 	//1.广度优先遍历
 	public static int[][] floodFill_BFS(int[][] image, int sr, int sc, int newColor) {
-		int oldColor = image[sr][sc];
+		int oldColor = image[sr][sc];//记录初始节点的颜色
 		if(oldColor == newColor)
 			return image;
 		int row = image.length, col = image[0].length;
 		Queue<int[]> queue = new LinkedList<>();
-		image[sr][sc] = newColor;
-		queue.offer(new int[] {sr,sc});
+		image[sr][sc] = newColor;//上色
+		queue.offer(new int[] {sr,sc});//将当前节点的坐标入队
 		while(!queue.isEmpty()) {
 			int[] e = queue.poll();
-			int oldx=e[0],oldy=e[1];
-			for(int i=0; i < 4; ++i) {
-				int newx = oldx + dx[i], newy = oldy + dy[i];
-				if(newx >= 0 && newx < row && newy >= 0 && newy < col && image[newx][newy] == oldColor) {
-					queue.offer(new int[] {newx,newy});
+			int oldx=e[0],oldy=e[1];//讲旧的坐标记录
+			for(int i=0; i < 4; ++i) {//遍历上下左右四个方向
+				int newx = oldx + dx[i], newy = oldy + dy[i];//记录将要遍历的新坐标
+				if(newx >= 0 && newx < row && newy >= 0 && newy < col && image[newx][newy] == oldColor) {//新坐标合法且颜色为旧颜色
+					queue.offer(new int[] {newx,newy});//入队并上色
 					image[newx][newy] = newColor;
 				}
 			}
@@ -62,7 +62,7 @@ public class Solution1 {
 	public static void main(String[] args) {
 		int image[][] = { { 1, 1, 1 }, { 1, 1, 0 }, { 1, 0, 1 }};
 		//image = floodFill_BFS(image, 1, 1, 2);
-		image = floodFill_DFS(image, 1, 1, 0);
+		image = floodFill_DFS(image, 1, 1, 2);
 		for(int[] row : image) {
 			System.out.println(Arrays.toString(row));
 		}
