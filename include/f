@@ -1,9 +1,0 @@
-#ifndef __F__
-#define __F__
-#include <iostream>
-using namespace std;
-
-int add(int x, int y);
-void printNums(int *p, int row, int col);
-void printNUms__(int (*)[4], int row, int col);
-#endif
