@@ -35,11 +35,5 @@ int main()
 	combine(20,5);
 	clock_t e = clock();
 	cout << "program running time is " << e-s << endl;
-	//for(vector<int> nums : ret)
-	//{
-	//	for(int n : nums)
-	//		cout << n << " ";
-	//	cout << endl;	
-	//}
 	return 0;
 }	
