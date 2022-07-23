@@ -10,7 +10,7 @@ vector<int> item;
 //回溯算法，递归，本质上就是枚举
 void backTracking(int n, int k, int startIndex)
 {
-	if(item.size() == k)//递归终止条件
+	if((int)item.size() == k)//递归终止条件
 	{
 		ret.push_back(item);//处理结果
 		return;
@@ -32,8 +32,16 @@ vector<vector<int>> combine(int n, int k)
 int main()
 {
 	clock_t s = clock();
-	combine(20,5);
+	combine(5,3);
 	clock_t e = clock();
+	for(vector<int> temp : ret)
+	{
+		for(auto it = temp.cbegin(); it != temp.cend(); ++it)
+		{
+			cout << *it << " ";
+		}
+		cout << endl;
+	}
 	cout << "program running time is " << e-s << endl;
 	return 0;
 }	
