@@ -52,11 +52,45 @@ int* getNext(HString T){
 	return next;
 }
 
+//KMP算法优化，优化next数组
+//1.先求next数组，再求nextval数组,间接求数组
+int* getNextVal_I(int* (*Next)(HString),HString T){
+	int* next = getNext(T);
+	int* nextval = (int*)calloc(1,sizeof(int) * (T.length + 1));
+	nextval[1] = 0;
+	for(int j = 2; j <= T.length; ++j){
+		if(T.ch[j] == T.ch[next[j]])
+			nextval[j] = nextval[next[j]];
+		else
+			nextval[j] = next[j];
+	}
+	free(next);next = NULL;
+	return nextval;
+}
+
+//2.直接求nextval数组
+int* getNextVal(HString T){
+	int* nextval = (int*)calloc(1,sizeof(int) * (T.length + 1));
+	nextval[1] = 0;
+	int i = 1, j = 0;
+	while(i < T.length){
+		if(j == 0 || T.ch[i] == T.ch[j]){
+			++i;++j;
+			if(T.ch[i] != T.ch[j])
+				nextval[i] = j;
+			else
+				nextval[i] = nextval[j];
+		}
+		else
+			j = nextval[j];
+	}
+	return nextval;
+}
 //KMP算法,S为主串，T为模式串
 int KMP(HString S, HString T){
 	int* next = NULL;
 	if(T.length != 0){
-		next = getNext(T);
+		next = getNextVal_I(getNext,T);
 	}
 	int i = 1, j = 1;
 	while(i <= S.length && j <= T.length){
