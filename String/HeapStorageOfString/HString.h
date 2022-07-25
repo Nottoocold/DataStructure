@@ -19,7 +19,6 @@ int StrCopy(HString* T, HString S);
 //
 int StrLength(HString T);
 
-
 int StrCompare(HString T, HString S);
 
 //串长置0
@@ -27,7 +26,6 @@ int ClearStr(HString* T);
 
 //释放串空间
 int DestoryStr(HString* T);
-
 
 int StrEmpty(HString T);
 
@@ -39,7 +37,6 @@ HString* SubString(HString S, int pos, int len);
 
 //子串在主串中的索引，没有则返回-1
 int indexStr(HString main_T, HString sub_S);
-
 
 void printStr(HString T);
 
