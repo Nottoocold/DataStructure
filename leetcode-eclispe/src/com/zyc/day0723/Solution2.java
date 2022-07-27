@@ -35,7 +35,7 @@ public class Solution2 {
 	}
 
 	public static void main(String[] args) {
-		String string = "";
+		String string = "   -4039words";
 		System.out.println(new Solution2().myAtoi(string));
 	}
 }
