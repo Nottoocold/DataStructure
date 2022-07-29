@@ -13,7 +13,7 @@
 typedef struct AVLNode AVLNode;
 typedef struct AVLNode *AVLTree;
 typedef int ElemType;
-typedef enum {
+typedef enum boolean{
     false,
     true
 } bool;
