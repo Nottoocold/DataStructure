@@ -49,8 +49,8 @@ void swap(ElemType *const x, ElemType *const y)
     *x = *y;
     *y = t;
 }
-
-void headSort(ElemType A[], int size)
+//大根堆排序
+void heapSort(ElemType A[], int size)
 {
     buildMaxHeap(A, size);
     for (int i = size; i > 1; i--)
@@ -60,15 +60,62 @@ void headSort(ElemType A[], int size)
     }
 }
 
+//调整以root为根的子树为小根堆
+void S_heapAdjust(ElemType A[],ElemType root,int size)
+{
+    
+    A[0] = A[root];                           // A[0]暂存待调整的根节点元素
+    for (int i = root * 2; i <= size; i *= 2) //从root较小的孩子向下调整
+    {
+        if (i < size && A[i] > A[i + 1])
+            ++i; //筛选root的左右孩子较小者
+        if (A[0] <= A[i])
+            break; // root比左右孩子都小
+        else
+        {
+            A[root] = A[i]; //将较大的孩子往上调整
+            root = i;       // root指向新的根节点 继续向下遍历
+        }
+    }
+    A[root] = A[0]; //将A[0]放入最终位置
+}
+
+//建立小根堆
+void buildSmallHeap(ElemType A[],int size)
+{
+    int i = size / 2;
+    for(; i > 0; --i)
+        S_heapAdjust(A,i,size);
+}
+
+//小根堆排序
+void S_heapSort(ElemType A[],int size)
+{
+    buildSmallHeap(A,size);
+    for(int i = size; i > 1; --i)
+    {
+        swap(&A[1],&A[i]);
+        S_heapAdjust(A,1,i-1);
+    }
+}
+
+
 int main()
 {
     ElemType a[] = {-1, 10, 4, 9, 7, 2, 1, 8, 5};
+    ElemType b[] = {-1, 23, 45, 12, 20, 15, 18, 60, 10, 19};
     int size = (sizeof(a) / sizeof(a[0])) - 1, i = 1;
-    headSort(a, size);
+    S_heapSort(a, size);//小根堆排序
     while (i <= size)
     {
         printf("%d ", a[i++]);
     }
+    printf("\n");
+    int bsize = (sizeof(b)/sizeof(b[0]))-1;
+    heapSort(b,bsize);//大根堆排序
+    i = 1;
+    while(i < bsize)
+        printf("%d ",b[i++]);
     printf("\n");
     return 0;
 }
