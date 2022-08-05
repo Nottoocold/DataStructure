@@ -102,7 +102,7 @@ void S_heapSort(ElemType A[],int size)
 
 int main()
 {
-    ElemType a[] = {-1, 10, 4, 9, 7, 2, 1, 8, 5};
+    ElemType a[] = {-1, 10, 4, 9, 7, 2, 1, 8, 5, 11, 20, 3};
     ElemType b[] = {-1, 23, 45, 12, 20, 15, 18, 60, 10, 19};
     int size = (sizeof(a) / sizeof(a[0])) - 1, i = 1;
     S_heapSort(a, size);//小根堆排序
