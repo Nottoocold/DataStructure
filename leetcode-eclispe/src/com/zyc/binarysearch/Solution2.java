@@ -1,5 +1,9 @@
 package com.zyc.binarysearch;
 
+/**
+ * @see Solution4.java
+ * @author zyc
+ */
 public class Solution2 {
 	/**
 	 * 二分查找
