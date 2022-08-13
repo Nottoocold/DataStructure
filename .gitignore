@@ -1,3 +1,7 @@
+.metadata/
+.recommenders/
+*.class
+.settings/
 ### C template
 # Prerequisites
 *.d
