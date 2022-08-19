@@ -5,6 +5,7 @@ bin/
 .idea/
 classes/
 target/
+test/
 .metadata/
 .recommenders/
 *.class
