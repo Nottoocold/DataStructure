@@ -2,4 +2,7 @@ bin/
 .metadata/
 .recommenders/
 .settings/
+.idea/
+classes/
+target/
 
