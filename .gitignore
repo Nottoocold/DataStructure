@@ -5,4 +5,15 @@ bin/
 .idea/
 classes/
 target/
+.metadata/
+.recommenders/
+*.class
+.settings/
+*.d
+*.o
+*.ko
+*.obj
+*.exe
+*.out
+
 
