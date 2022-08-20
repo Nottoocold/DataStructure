@@ -1,4 +1,4 @@
-package com.zyc.utils;
+package com.zyc.sort;
 
 import java.util.Random;
 
@@ -40,7 +40,7 @@ public final class MyArrays {
     }
 
     private static int Partition_2(int[] nums, int left, int right) {
-        int idx = left + RANDOM.nextInt(right - left + 1);//随机取一个元素
+        int idx = left + RANDOM.nextInt(right - left + 1);//随机取一个元素枢轴元素
         swap(nums, left, idx);//将其与区间左边界交换
         int pivot = nums[left];//获取枢轴元素
         int lb = left;//
@@ -142,5 +142,90 @@ public final class MyArrays {
             arr[k++] = work[i++];
         while (j <= right)
             arr[k++] = work[j++];
+    }
+
+    /**
+     * 堆排序 堆是一种特殊的完全二叉树，特殊之处在于任一节点(除根节点外)的关键字都大于等于它的左右孩子<br/>
+     * 大根堆 根节点的值大于左右孩子的值 L(i) >= L(2i) 且L(i) >= L(2i+1)
+     * 小根堆 根节点的值小于左右孩子的值 L(i) <= L(2i) 且L(i) <= L(2i+1)
+     * 由完全二叉树的性质 非终端节点的下标 i <= n/2
+     * <p>
+     * 一个节点 每下坠一次 最多需要对比关键字2次
+     * 若树高h 某节点在第i层 则将次节点进行调整最多只会下坠h-i层 故关键字对比不会超过 2(h-i) 次 而n个节点的完全二叉树树高 h = log2(n) + 1
+     * <p>
+     * 第i层最多有2^(i-1)个节点 而只有第1~(h-1)层的节点才会被调整 故关键字对比次数不过超 2^(i-1)*2(h-i) 从h-1到1求和 最终结果 <= 4n
+     * 故关键字对比次数不超过4n 建堆时间复杂度是O(n)
+     * 由headSort算法得出每次交换堆顶和堆底元素后 堆顶的元素需要调整 最多只会下坠h-1层 每次最多对比关键字2次 故时间复杂度为树高 O(h) = O(log2N)
+     * 故堆排序算法时间复杂度为O(NlogN)
+     * 不稳定算法
+     *
+     * @param arr 待排序数组
+     */
+    public static void MaxHeapSort(int[] arr) {
+        BuildMaxHeap(arr, arr.length - 1);
+        for (int i = arr.length - 1; i > 0; i--) {
+            swap(arr, 0, i);      //交换堆顶和堆底元素
+            MaxHeapAdjust(arr, 0, i - 1); //调整剩余的元素为大根堆
+        }
+    }
+
+    private static void BuildMaxHeap(int[] arr, int size) {
+        for (int i = size / 2; i >= 0; --i) {
+            MaxHeapAdjust(arr, i, size);
+        }
+    }
+
+    //调整以arr[origin]为根的子树为大根堆
+    private static void MaxHeapAdjust(int[] arr, int origin, int size) {
+        int Root = arr[origin];//暂存根节点元素
+        int i;
+        for (i = (origin << 1) + 1; i <= size; i = (i << 1) + 1) {
+            if (i < size && arr[i] < arr[i + 1]) {// i < size 保证arr[i] 有右兄弟  if若成立则i指向最大孩子的下标
+                ++i;
+            }
+            if (Root >= arr[i]) {//若当前arr[origin]的值大于他最大孩子的值
+                break;
+            } else {
+                arr[origin] = arr[i];//将大孩子向上调整
+                origin = i;//origin指向最大孩子下标
+            }
+        }
+        arr[origin] = Root;//将root放入最终位置
+    }
+
+    /**
+     * 小根堆排序,降序排列
+     *
+     * @param arr 待排序数组
+     */
+    public static void MinHeapSort(int[] arr) {
+        BuildMinHeap(arr, arr.length - 1);
+        for (int i = arr.length - 1; i > 0; --i) {
+            swap(arr, 0, i);
+            MinHeapAdjust(arr, 0, i - 1);
+        }
+    }
+
+    private static void BuildMinHeap(int[] arr, int size) {
+        for (int i = size / 2; i >= 0; --i) {
+            MinHeapAdjust(arr, i, size);
+        }
+    }
+
+    private static void MinHeapAdjust(int[] arr, int origin, int size) {
+        int Root = arr[origin];//暂存根节点元素
+        int i;
+        for (i = (origin << 1) + 1; i <= size; i = (i << 1) + 1) {
+            if (i < size && arr[i] > arr[i + 1]) {// i < size 保证arr[i] 有右兄弟  if若成立则i指向最小孩子的下标
+                ++i;
+            }
+            if (Root <= arr[i]) {//若当前arr[origin]的值小于他最小孩子的值
+                break;
+            } else {
+                arr[origin] = arr[i];//将小孩子向上调整
+                origin = i;//origin指向最小孩子下标
+            }
+        }
+        arr[origin] = Root;//将Root放入最终位置
     }
 }
