@@ -124,13 +124,4 @@ public class SearchTree {
         return root;
     }
 
-    static class TreeNode<T> {
-        T val;
-        TreeNode<T> left;
-        TreeNode<T> right;
-
-        TreeNode(T x) {
-            val = x;
-        }
-    }
 }
