@@ -69,4 +69,32 @@ public class Dynamic {
         return grid[m - 1][n - 1];
     }
 
+    /**
+     * 把数字翻译成字符串<br>
+     * 规定 0-'a',1-'b' ... 11-'i',...25-'z';
+     * 按照此规则可以有多少种翻译方法？
+     *
+     * @param num
+     * @return
+     */
+    public int translateNum(int num) {
+        // 1 2 2 5 8  或 3 2 3
+      // x y   i
+        String s = String.valueOf(num);
+        // 初始化 x 和 y
+        int x = 1, y = 1, z = 1;
+        for (int i = 2; i <= s.length(); ++i) {
+            String tmp = s.substring(i - 2, i);
+            if (tmp.compareTo("25") <= 0 && tmp.compareTo("10") >= 0) {
+                z = x + y;
+                x = y;
+                y = z;
+            } else {
+                z = y;
+                x = y;
+                y = z;
+            }
+        }
+        return z;
+    }
 }

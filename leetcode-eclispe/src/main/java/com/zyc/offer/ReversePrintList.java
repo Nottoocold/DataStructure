@@ -27,13 +27,65 @@ public class ReversePrintList {
         }
     }
 
+    // 链表中节点值互不相同
+    public ListNode deleteNode(ListNode head, int val) {
+        if (head == null) return null;
+        ListNode cur = head, pre = null;
+        while (cur != null) {
+            if (cur.val == val) {
+                if (pre == null) {
+                    pre = cur.next;
+                } else {
+                    pre.next = cur.next;
+                }
+                break;
+            } else {
+                pre = cur;
+                cur = cur.next;
+
+            }
+        }
+        return head.val == val ? pre : head;
+    }
+
+    // 给定一个数字k代表链表倒数第k个节点，规定最后一个节点就是倒数第一个节点
+    // 返回从第k个节点的引用
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        List<ListNode> list = new ArrayList<>();
+        list.add(null);
+        int count = 0;
+        ListNode p = head;
+        while (p != null) {
+            count++;
+            list.add(p);
+            p = p.next;
+        }
+        return list.get(count - k + 1);
+    }
+
+    // 相交链表 返回第一个相交的节点
+    ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        ListNode p = headA, q = headB;
+        while (p != q) {
+            if (p == null) p = headB;
+            else p = p.next;
+            if (q == null) q = headA;
+            else q = q.next;
+        }
+        return p;
+    }
 }
 
 class ListNode {
     int val;
     ListNode next;
 
-    public ListNode(int val,ListNode next) {
+    public ListNode(int val) {
+        this.val = val;
+    }
+
+    public ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
     }
