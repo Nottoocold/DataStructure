@@ -38,10 +38,4 @@ public class Solution2 {
         return compareString(s1, s2);
     }
 
-    public static void main(String[] args) {
-        String s = "ab#c";
-        String t = "ad#c";
-        System.out.println(backspaceCompare(s, t));
-    }
-
 }

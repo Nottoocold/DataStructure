@@ -22,8 +22,8 @@ public class Solution1 {
 
     public static ListNode build(ListNode head, Object... objects) {
         ListNode p = head;
-        for (int i = 0; i < objects.length; ++i) {
-            ListNode node = new ListNode((int) objects[i]);
+        for (Object object : objects) {
+            ListNode node = new ListNode((int) object);
             p.next = node;
             p = node;
         }
@@ -61,14 +61,5 @@ public class Solution1 {
         }
         return x_head.next;
     }
-
-    public static void main(String[] args) {
-        ListNode head = new ListNode(1, null);
-        head = Solution1.build(head, 2, 3, 3, 4, 4, 5);
-        head = deleteDuplicates(head);
-        print(head);
-
-    }
-
 
 }
