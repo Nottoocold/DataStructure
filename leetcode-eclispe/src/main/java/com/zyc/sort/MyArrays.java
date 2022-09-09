@@ -206,13 +206,13 @@ public final class MyArrays {
         }
     }
 
-    private static void BuildMinHeap(int[] arr, int size) {
+    public static void BuildMinHeap(int[] arr, int size) {
         for (int i = size / 2; i >= 0; --i) {
             MinHeapAdjust(arr, i, size);
         }
     }
 
-    private static void MinHeapAdjust(int[] arr, int origin, int size) {
+    public static void MinHeapAdjust(int[] arr, int origin, int size) {
         int Root = arr[origin];//暂存根节点元素
         int i;
         for (i = (origin << 1) + 1; i <= size; i = (i << 1) + 1) {
