@@ -200,8 +200,20 @@ bool AVL_Search(AVLTree root, ElemType e, AVLNode **ret) {
 void InOrderAVL(AVLTree root) {
     if (root) {
         InOrderAVL(root->lchild);
-        printf("CurNode = { data: %d, bf: %d, left: %p, right: %p \n", root->data, root->bf, root->lchild,
+        printf("CurNode = { data: %d, bf: %d, left: %p, right: %p }\n", root->data, root->bf, root->lchild,
                root->rchild);
         InOrderAVL(root->rchild);
     }
+}
+
+int main() {
+    AVLTree root = NULL;
+    bool flag = false;
+    int arr[] = {2,4,1,6,7,3,3,9};
+    for (size_t i = 0; i < sizeof(arr)/sizeof(arr[0]); i++)
+    {
+        InsertAVL(&root,arr[i],&flag);
+    }
+    InOrderAVL(root);
+    return 0;
 }

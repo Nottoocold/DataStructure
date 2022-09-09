@@ -22,7 +22,5 @@ int main(){
     printf("GetTopElem..%d ",GetTopElem(S,&i));
     printf("Pop..%d \n",Pop(&S,&i));
   }
-  printf("\n");
-
   return 0;
 }
