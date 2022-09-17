@@ -1,8 +1,8 @@
 package com.zyc.datastructure.tree;
 
+import java.util.ArrayDeque;
 import java.util.Comparator;
 import java.util.Deque;
-import java.util.LinkedList;
 
 /**
  * 平衡二叉树 它的查找效率与它的高度密切相关
@@ -18,6 +18,10 @@ public class AVLTree<E> {
 
     public AVLTree(Comparator<? super E> comparator) {
         this.comparator = comparator;
+    }
+
+    public int height() {
+        return getHeight(this.root);
     }
 
     public void add(E val) {
@@ -40,7 +44,7 @@ public class AVLTree<E> {
         }
         AVLTreeNode<E> parent = null;
         AVLTreeNode<E> delNode = this.root;
-        Deque<AVLTreeNode<E>> stack = new LinkedList<>();
+        Deque<AVLTreeNode<E>> stack = new ArrayDeque<>();
         // 迭代寻找待删除的节点的引用和它的双亲节点 并将迭代路径压栈
         while (delNode!=null && comparator.compare(delNode.getVal(), key)!=0) {
             if (comparator.compare(delNode.getVal(), key) > 0) {

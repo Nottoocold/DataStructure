@@ -17,4 +17,5 @@ public class Node<E> {
     public void setVal(E val) {
         this.val = val;
     }
+
 }
