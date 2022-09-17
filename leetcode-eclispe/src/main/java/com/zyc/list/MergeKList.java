@@ -2,7 +2,7 @@ package com.zyc.list;
 
 public class MergeKList {
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 

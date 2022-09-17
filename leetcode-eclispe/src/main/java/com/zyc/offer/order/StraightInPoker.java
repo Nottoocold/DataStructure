@@ -1,6 +1,6 @@
 package com.zyc.offer.order;
 
-import com.zyc.sort.MyArrays;
+import com.zyc.datastructure.sort.SimpleArraysSort;
 
 public class StraightInPoker {
 
@@ -13,7 +13,7 @@ public class StraightInPoker {
      * @return 如果是顺子返回true
      */
     public boolean isStraight(int[] nums) {
-        MyArrays.MergeSort(nums);
+        SimpleArraysSort.MergeSort(nums);
         int zero = 0, gap = 0;
         for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i]==0) {
