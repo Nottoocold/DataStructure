@@ -30,7 +30,7 @@ public class AVLTree<E> {
 
     public E find(E key) {
         AVLTreeNode<E> node = find0(key);
-        return node!=null ? (node.val==key ? node.val:null):null;
+        return node!=null ? (node.getVal()==key ? node.getVal():null):null;
     }
 
     public boolean delete(E key) {
@@ -42,8 +42,8 @@ public class AVLTree<E> {
         AVLTreeNode<E> delNode = this.root;
         Deque<AVLTreeNode<E>> stack = new LinkedList<>();
         // 迭代寻找待删除的节点的引用和它的双亲节点 并将迭代路径压栈
-        while (delNode!=null && comparator.compare(delNode.val, key)!=0) {
-            if (comparator.compare(delNode.val, key) > 0) {
+        while (delNode!=null && comparator.compare(delNode.getVal(), key)!=0) {
+            if (comparator.compare(delNode.getVal(), key) > 0) {
                 parent = delNode;
                 stack.push(delNode);
                 delNode = delNode.left;
@@ -91,7 +91,7 @@ public class AVLTree<E> {
                 pre = cur;
                 cur = cur.right;
             }
-            node.val = cur.val;
+            node.setVal(cur.getVal());
             if (pre!=node) { // node节点有前驱
                 pre.right = cur.left;
             } else { // node节点没有前驱 因为node节点的左孩子没有右孩子
@@ -108,12 +108,12 @@ public class AVLTree<E> {
     private AVLTreeNode<E> find0(E key) {
         AVLTreeNode<E> cur = this.root;
         while (cur!=null) {
-            if (comparator.compare(cur.val, key) > 0) {
+            if (comparator.compare(cur.getVal(), key) > 0) {
                 if (cur.left==null) {
                     return cur;
                 }
                 cur = cur.left;
-            } else if (comparator.compare(cur.val, key) < 0) {
+            } else if (comparator.compare(cur.getVal(), key) < 0) {
                 if (cur.right==null) {
                     return cur;
                 }
@@ -128,11 +128,11 @@ public class AVLTree<E> {
     private AVLTreeNode<E> insert(AVLTreeNode<E> root, E val) {
         if (root==null) {
             root = new AVLTreeNode<>(val, 1);
-        } else if (comparator.compare(root.val, val) > 0) {
+        } else if (comparator.compare(root.getVal(), val) > 0) {
             root.left = insert(root.left, val);
             // 判断是否不平衡
             if (getHeight(root.left) - getHeight(root.right) > 1) {
-                if (comparator.compare(root.left.val, val) > 0) {
+                if (comparator.compare(root.left.getVal(), val) > 0) {
                     // LL
                     root = RightRotate(root);
                 } else {
@@ -140,11 +140,11 @@ public class AVLTree<E> {
                     root = leftRotateThenRight(root);
                 }
             }
-        } else if (comparator.compare(root.val, val) < 0) {
+        } else if (comparator.compare(root.getVal(), val) < 0) {
             root.right = insert(root.right, val);
             // 判断是否不平衡
             if (getHeight(root.left) - getHeight(root.right) < -1) {
-                if (comparator.compare(root.right.val, val) < 0) {
+                if (comparator.compare(root.right.getVal(), val) < 0) {
                     // RR
                     root = LeftRotate(root);
                 } else {

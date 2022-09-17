@@ -1,7 +1,8 @@
 package com.zyc.datastructure.tree;
 
-public class AVLTreeNode<E> {
-    E val;
+import com.zyc.datastructure.node.Node;
+
+public class AVLTreeNode<E> extends Node<E>  {
 
     // 记录当前子树高度
     int height;
@@ -9,15 +10,16 @@ public class AVLTreeNode<E> {
     AVLTreeNode<E> left, right;
 
     public AVLTreeNode() {
+        super();
     }
 
     public AVLTreeNode(E val, int height) {
-        this.val = val;
+        super(val);
         this.height = height;
     }
 
     public AVLTreeNode(E val, AVLTreeNode<E> left, AVLTreeNode<E> right) {
-        this.val = val;
+        super(val);
         this.left = left;
         this.right = right;
         this.height = 1;
@@ -26,7 +28,7 @@ public class AVLTreeNode<E> {
     @Override
     public String toString() {
         return "Node{" +
-                "val=" + val +
+                "val=" + super.getVal() +
                 ", height=" + height +
                 '}';
     }
