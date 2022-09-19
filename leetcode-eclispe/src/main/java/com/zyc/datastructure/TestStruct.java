@@ -13,24 +13,24 @@ public class TestStruct {
     private static final TestStruct TEST = new TestStruct();
 
     public static void main(String[] args) throws InterruptedException {
-        TEST.RBTreeTest();
+        TEST.rBTreeTest();
     }
 
-    public void LinkTest() {
+    public void linkTest() {
         DoubleLinkList<Integer> linkList = new DoubleLinkList<>();
         for (int i = 0; i < 4095; i++) {
             linkList.addLast(i + 1);
         }
     }
 
-    public void QueueTest() {
+    public void queueTest() {
         ArrayQueue<Integer> queue = new ArrayQueue<>();
         for (int i = 0; i < 4095; i++) {
             queue.offer(i + 1);
         }
     }
 
-    public void RBTreeTest() {
+    public void rBTreeTest() {
         RBTree<Integer, String> tree = new RBTree<>(Integer::compareTo);
         tree.put(20,"zyc1");
         tree.put(10,"zyc2");
@@ -48,6 +48,7 @@ public class TestStruct {
         tree.put(23,"zyc8");
         tree.put(24,"zyc8");
         tree.put(19,"zyc8");
+        System.out.println(tree.containKey(3));
     }
 
     public void AVLTreeTest(int count) {

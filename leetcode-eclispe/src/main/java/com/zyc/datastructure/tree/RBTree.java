@@ -20,6 +20,10 @@ public class RBTree<K, V> {
         insert(root, key, val);
     }
 
+    public boolean containKey(K key) {
+        return find(key)!=null;
+    }
+
     private void insert(RBNode<K, V> curNode, K k, V v) {
         insert0(curNode, new RBNode.Entry<>(k, v));
     }
@@ -73,13 +77,13 @@ public class RBTree<K, V> {
                     // LL
                     RBNode<K, V> after = rightRotate(gf);
                     updateRelation(gf, after);
-                    updateColor(parent,gf);
+                    updateColor(parent, gf);
 
                 } else {
                     // LR
                     RBNode<K, V> after = leftThenRight(gf);
                     updateRelation(gf, after);
-                    updateColor(newNode,gf);
+                    updateColor(newNode, gf);
                 }
 
             } else {
@@ -87,12 +91,12 @@ public class RBTree<K, V> {
                     // RR
                     RBNode<K, V> after = leftRotate(gf);
                     updateRelation(gf, after);
-                    updateColor(parent,gf);
+                    updateColor(parent, gf);
                 } else {
                     // RL
                     RBNode<K, V> after = RightThenLeft(gf);
                     updateRelation(gf, after);
-                    updateColor(newNode,gf);
+                    updateColor(newNode, gf);
                 }
             }
 
@@ -124,7 +128,7 @@ public class RBTree<K, V> {
         }
     }
 
-    // 能执行到此方法 说明此红黑树的高度一定大于2
+    // 查找返回node的叔叔节点 若叔叔节点为空则返回NULL
     private RBNode<K, V> findUncle(RBNode<K, V> node) {
         // 是根节点
         if (node.parent==null) return null;
@@ -135,6 +139,22 @@ public class RBTree<K, V> {
             return gf.right;
         }
         return gf.left;
+    }
+
+    private RBNode<K, V> find(K key) {
+        RBNode<K, V> p = root;
+        int cmp = 0;
+        while (p!=null) {
+            cmp = comparator.compare(p.entry.getKey(), key);
+            if (cmp > 0) {
+                p = p.left;
+            } else if (cmp < 0) {
+                p = p.right;
+            } else {
+                return p;
+            }
+        }
+        return null;
     }
 
     private RBNode<K, V> leftRotate(RBNode<K, V> node) {

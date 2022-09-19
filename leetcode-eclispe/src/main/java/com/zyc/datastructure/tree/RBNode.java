@@ -13,7 +13,7 @@ public class RBNode<K, V> {
     /**
      * 数据域
      */
-    Entry<K, V> entry;
+    final Entry<K, V> entry;
 
     RBNode<K, V> parent;
 
