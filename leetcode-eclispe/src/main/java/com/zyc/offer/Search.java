@@ -1,10 +1,8 @@
 package com.zyc.offer;
 
-import com.zyc.sort.MyArrays;
+import com.zyc.datastructure.sort.SimpleArraysSort;
 
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Set;
 
 public class Search {
@@ -44,7 +42,7 @@ public class Search {
     }
 
     public int findRepeatBySort(int[] arr) {
-        MyArrays.QuickSort(arr);
+        SimpleArraysSort.QuickSort(arr);
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] == arr[i + 1])
                 return arr[i];

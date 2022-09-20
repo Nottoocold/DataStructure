@@ -1,8 +1,8 @@
-package com.zyc.sort;
+package com.zyc.datastructure.sort;
 
 import java.util.Random;
 
-public final class MyArrays {
+public final class SimpleArraysSort {
     private static final Random RANDOM = new Random();
 
     /**

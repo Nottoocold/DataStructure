@@ -1,6 +1,10 @@
 package com.zyc.offer.tree;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchTree {
     int level = 0;
@@ -12,16 +16,16 @@ public class SearchTree {
      * @return 层序遍历序列数组
      */
     public <T> List<T> levelOrder(TreeNode<T> root) {
-        if (root == null) return null;
+        if (root==null) return null;
         Deque<TreeNode<T>> queue = new LinkedList<>();
         queue.offerLast(root);
         List<T> list = new ArrayList<>();
         while (!queue.isEmpty()) {
             TreeNode<T> t = queue.pollFirst();
             list.add(t.val);
-            if (t.left != null)
+            if (t.left!=null)
                 queue.offerLast(t.left);
-            if (t.right != null)
+            if (t.right!=null)
                 queue.offerLast(t.right);
         }
         return list;
@@ -34,7 +38,7 @@ public class SearchTree {
      * @return 层序遍历序列集合
      */
     public <T> List<List<T>> levelOrderByRow(TreeNode<T> root) {
-        if (root == null) return new ArrayList<>();
+        if (root==null) return new ArrayList<>();
         Deque<TreeNode<T>> queue = new LinkedList<>();
         List<List<T>> ret = new ArrayList<>();
         queue.offerLast(root);
@@ -43,11 +47,11 @@ public class SearchTree {
             List<T> list = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 TreeNode<T> T = queue.pollFirst();
-                assert T != null;
+                assert T!=null;
                 list.add(T.val);
-                if (T.left != null)
+                if (T.left!=null)
                     queue.offerLast(T.left);
-                if (T.right != null)
+                if (T.right!=null)
                     queue.offerLast(T.right);
             }
             ret.add(list);
@@ -63,7 +67,7 @@ public class SearchTree {
      * @return 结果集合
      */
     public List<List<Integer>> levelOrderBy(TreeNode<Integer> root) {
-        if (root == null) return new ArrayList<>();
+        if (root==null) return new ArrayList<>();
         Deque<TreeNode<Integer>> queue = new LinkedList<>();
         List<List<Integer>> ret = new ArrayList<>();
         queue.offerLast(root);
@@ -71,14 +75,14 @@ public class SearchTree {
             int size = queue.size();
             List<Integer> list = new ArrayList<>(size);
             level++;
-            if (((level & 1) == 1)) {//奇数行
+            if (((level & 1)==1)) {//奇数行
                 for (int i = 0; i < size; i++) {
                     TreeNode<Integer> T = queue.pollFirst();
-                    assert T != null;
+                    assert T!=null;
                     list.add(T.val);
-                    if (T.left != null)
+                    if (T.left!=null)
                         queue.offerLast(T.left);
-                    if (T.right != null)
+                    if (T.right!=null)
                         queue.offerLast(T.right);
                 }
                 ret.add(list);
@@ -86,11 +90,11 @@ public class SearchTree {
                 Deque<TreeNode<Integer>> stack = new ArrayDeque<>(size << 1);
                 for (int i = 0; i < size; i++) {
                     TreeNode<Integer> T = queue.pollLast();
-                    assert T != null;
+                    assert T!=null;
                     list.add(T.val);
-                    if (T.right != null)
+                    if (T.right!=null)
                         stack.push(T.right);
-                    if (T.left != null)
+                    if (T.left!=null)
                         stack.push(T.left);
                 }
                 while (!stack.isEmpty()) {
@@ -106,15 +110,15 @@ public class SearchTree {
         Deque<TreeNode<T>> queue = new LinkedList<>();
         for (T t : arr) {
             TreeNode<T> node = new TreeNode<>(t);
-            if (root == null) {
+            if (root==null) {
                 root = node;
                 queue.offerLast(node);
             } else {
                 TreeNode<T> cur = queue.getFirst();
-                if (cur.left == null) {
+                if (cur.left==null) {
                     cur.left = node;
                     queue.offerLast(node);
-                } else if (cur.right == null) {
+                } else if (cur.right==null) {
                     cur.right = node;
                     queue.pollFirst();
                     queue.offerLast(node);
@@ -122,6 +126,41 @@ public class SearchTree {
             }
         }
         return root;
+    }
+
+    public <T> int maxDepth(TreeNode<T> root) {
+        if (root!=null) {
+            int left = maxDepth(root.left);
+            int right = maxDepth(root.right);
+            return Math.max(left, right) + 1;
+        }
+        return 0;
+    }
+
+    // 先序遍历实现
+    public <E> boolean isBalanced(TreeNode<E> root) {
+        if (root==null) {
+            return true;
+        }
+        // 当前节点的左右子树高度差的绝对值小于等于1 且 左右子树也都平衡
+        return Math.abs(maxDepth(root.left) - maxDepth(root.right)) <= 1
+                && isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    // 后序遍历实现
+    public <E> boolean isBalanced0(TreeNode<E> root) {
+        return order(root)!=-1;
+    }
+
+    private <E> int order(TreeNode<E> root) {
+        if (root==null) {
+            return 0;
+        }
+        int left = order(root.left);
+        if (left==-1) return -1;
+        int right = order(root.right);
+        if (right==-1) return -1;
+        return Math.abs(left - right) <= 1 ? Math.max(left, right) + 1:-1;
     }
 
 }
