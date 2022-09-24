@@ -1,5 +1,8 @@
 package com.zyc.datastructure.tree;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -31,6 +34,24 @@ public class RBTree<K, V> {
 
     public boolean containKey(K key) {
         return find(key) != null;
+    }
+
+    public V get(K key) {
+        RBNode<K, V> node = find(key);
+        if (node == null) {
+            return null;
+        }
+        return node.entry.getVal();
+    }
+
+    public boolean isEmpty() {
+        return this.root == null;
+    }
+
+    public Collection<RBNode.Entry<K, V>> collections() {
+        Collection<RBNode.Entry<K, V>> entries = new ArrayList<>();
+        InOrder(entries, root);
+        return Collections.unmodifiableCollection(entries);
     }
 
     private void insert(RBNode<K, V> curNode, K k, V v) {
@@ -209,8 +230,8 @@ public class RBTree<K, V> {
                 }
 
                 // 兄弟为黑色 左右侄子都为黑色
-                if ((brother.left != null && brother.left.color == RBNode.Color.black)
-                        && (brother.right != null && brother.right.color == RBNode.Color.black)) {
+                if ((brother.left == null || brother.left.color == RBNode.Color.black)
+                        && (brother.right == null || brother.right.color == RBNode.Color.black)) {
                     // 兄弟变为红色
                     brother.color = RBNode.Color.red;
                     // x指向父节点，继续进行调整
@@ -402,6 +423,14 @@ public class RBTree<K, V> {
             }
             RBNode.Color c = no.color;
             no.color = (c == RBNode.Color.red ? RBNode.Color.black : RBNode.Color.red);
+        }
+    }
+
+    private void InOrder(Collection<RBNode.Entry<K, V>> entries, RBNode<K, V> node) {
+        if (node != null) {
+            InOrder(entries, node.left);
+            entries.add(node.entry);
+            InOrder(entries, node.right);
         }
     }
 
