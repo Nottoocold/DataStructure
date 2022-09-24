@@ -48,7 +48,7 @@ public class TestStruct {
         tree.put(23,"zyc8");
         tree.put(24,"zyc8");
         tree.put(19,"zyc8");
-        System.out.println(tree.containKey(3));
+        boolean remove = tree.remove(30);
     }
 
     public void AVLTreeTest(int count) {

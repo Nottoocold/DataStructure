@@ -57,7 +57,7 @@ public class RBNode<K, V> {
     }
 
     static class Entry<K, V> extends Node<V> {
-        private final K key;
+        private K key;
 
         public Entry(K key) {
             this.key = key;
@@ -70,6 +70,10 @@ public class RBNode<K, V> {
 
         public K getKey() {
             return key;
+        }
+
+        public void setKey(K key) {
+            this.key = key;
         }
 
         @Override
