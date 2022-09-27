@@ -1,6 +1,6 @@
-package com.zyc.day0723;
+package com.zyc.str;
 
-public class Solution2 {
+public class StrToInt {
 
     /**
      * 8.字符串转换整数(atoi)
@@ -8,10 +8,11 @@ public class Solution2 {
      * @param s
      * @return
      */
-    public int myAtoi(String s) {
-        if (s.length() == 0)
-            return 0;
+    public int strToIntAtoi(String s) {
         s = s.trim();//remove space
+        if (s.length() == 0) {
+            return 0;
+        }
         if (s.charAt(0) != '-' && s.charAt(0) != '+' && (!Character.isDigit(s.charAt(0))))//the first char of string is a letter
             return 0;
         int i = Character.isDigit(s.charAt(0)) ? 0 : 1;
@@ -34,8 +35,27 @@ public class Solution2 {
         return over ? (int) ret : (flag ? -(int) ret : (int) ret);
     }
 
-    public static void main(String[] args) {
-        String string = "   -4039words";
-        System.out.println(new Solution2().myAtoi(string));
+    public int atoi(String str) {
+        str = str.trim();
+        if (str.length() == 0)
+            return 0;
+        if (str.charAt(0) != '-' && str.charAt(0) != '+' && (!Character.isDigit(str.charAt(0))))
+            return 0;
+        int i = Character.isDigit(str.charAt(0)) ? 0 : 1;
+        // 正负号
+        boolean sign = str.charAt(0) == '-';
+        int b = Integer.MAX_VALUE / 10; // 边界
+        int ret = 0;
+        for (int j = i; j < str.length(); ++j) {
+            if (!Character.isDigit(str.charAt(j)))
+                break;
+            if (ret > b || (ret == b && str.charAt(j) > '7')) {
+                return sign ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+            ret = ret * 10 + str.charAt(j) - '0';
+        }
+
+        return sign ? -ret : ret;
     }
+
 }

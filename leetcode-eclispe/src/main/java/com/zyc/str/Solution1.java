@@ -1,4 +1,4 @@
-package com.zyc.day0715;
+package com.zyc.str;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,11 +34,6 @@ public class Solution1 {
             set.remove(s.charAt(++i - 1));//移除队列中重复的元素
         }
         return length;
-    }
-
-    public static void main(String[] args) {
-        String string = "abcabcbb";
-        System.out.println(lengthOfLongestSubstring(string));
     }
 
 }

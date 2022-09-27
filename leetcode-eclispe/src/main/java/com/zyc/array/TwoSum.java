@@ -1,4 +1,4 @@
-package com.zyc.day0711;
+package com.zyc.array;
 
 import java.util.Arrays;
 
@@ -13,9 +13,9 @@ import java.util.Arrays;
 	你所设计的解决方案必须只使用常量级的额外空间。
  */
 
-public class Solution2 {
+public class TwoSum {
 
-    static int[] twoSum(int[] numbers, int target) {
+    public int[] twoSum(int[] numbers, int target) {
         int i = 0, index1 = -1, index2 = -1;
         int[] ret = new int[]{index1, index2};
         while (i < numbers.length) {
@@ -23,27 +23,21 @@ public class Solution2 {
             if (k >= numbers[i]) {
                 index2 = Arrays.binarySearch(numbers, i + 1, numbers.length, k);// [left,right)
                 if (index2 > 0) {
-                    ret[0] = i + 1;
-                    ret[1] = index2 + 1;
+                    ret[0] = i;
+                    ret[1] = index2;
                     return ret;
                 }
             } else {
                 index1 = Arrays.binarySearch(numbers, 0, i, k);
                 if (index1 > 0) {
-                    ret[0] = index1 + 1;
-                    ret[1] = i + 1;
+                    ret[0] = index1;
+                    ret[1] = i;
                     return ret;
                 }
             }
             i++;
         }
         return ret;
-    }
-
-    public static void main(String[] args) {
-        int[] nums = {0, 0, 3, 4};
-        nums = twoSum(nums, 0);
-        System.out.println(Arrays.toString(nums));
     }
 
 }

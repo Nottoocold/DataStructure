@@ -1,4 +1,4 @@
-package com.zyc.day0716;
+package com.zyc.dfs;
 
 /**
  * 695.岛屿的最大面积
@@ -20,11 +20,14 @@ public class Solution2 {
             return 0;
         }
         grid[row][col] = 0;//标记访问过的节点
-        return 1 + DFS(grid, row + 1, col) + DFS(grid, row, col + 1) + DFS(grid, row, col - 1) + DFS(grid, row - 1, col);
+        return 1 +
+                DFS(grid, row + 1, col) +
+                DFS(grid, row, col + 1) +
+                DFS(grid, row, col - 1) +
+                DFS(grid, row - 1, col);
     }
 
     public static int maxAreaOfIsland(int[][] grid) {
-        //long start = System.currentTimeMillis();
         int max = 0;
         for (int i = 0; i < grid.length; ++i) {
             for (int j = 0; j < grid[0].length; ++j) {
@@ -33,8 +36,6 @@ public class Solution2 {
                 }
             }
         }
-        //long end = System.currentTimeMillis();
-        //System.out.println("运行时间是:" + (end - start) + " ms.");
         return max;
     }
 

@@ -1,58 +1,17 @@
-package com.zyc.day0715;
+package com.zyc.str;
 
 import java.util.Arrays;
 
 public class Solution2 {
 
-    /**
-     * 给你两个字符串 s1 和 s2 ，写一个函数来判断 s2 是否包含 s1 的排列。如果是，返回 true ；否则，返回 false 。 换句话说，s1
+    /*
+     * 给你两个字符串s1和s2 ，写一个函数来判断 s2 是否包含 s1的排列。如果是，返回 true ；否则，返回 false 。 换句话说，s1
      * 的排列之一是 s2 的 子串
      *
      * @param s1 s1.length >= 1
      * @param s2 s2.length >= 1
      * @return
      */
-    // ab eidbaooo
-    public static boolean checkInclusion0(String s1, String s2) {
-        boolean flag = false;// 标记每一次比较是否为为真
-        int len_s1 = s1.length();
-        int len_s2 = s2.length();
-        if (len_s1 > len_s2)
-            return flag;
-        int i = 0;
-        while (i < len_s1) {
-            int j = 0;
-            while (j < len_s2) { // 寻找以s1.i为起始的子串
-                if (s1.charAt(i) != s2.charAt(j)) {
-                    // if (i - 1 != -1 && s1.charAt(i - 1) == s2.charAt(j - 1))
-                    // i = 0;
-                    ++j;
-                } else {
-                    int m = j;
-                    int n = i;
-                    while (m < j + len_s1) {
-                        if (s1.charAt(n) == s2.charAt(m)) {
-                            ++m;
-                            ++n;
-                            flag = true;
-                        } else {
-                            flag = false;// 匹配不成功
-                            break;
-                        }
-                    }
-                    if (flag)// success
-                        return flag;
-                    else {
-
-                    }
-                    ++j;
-                    i = 0;
-                }
-            } // j
-            i++; // 以s1.i为起始的子串没找到
-        } // i
-        return flag;
-    }
 
     /**
      * 由于排列不会改变字符串中每个字符的个数，所以只有当两个字符串每个字符的个数均相等时，一个字符串才是另一个字符串的排列。
@@ -90,9 +49,4 @@ public class Solution2 {
         return false;//
     }
 
-    public static void main(String[] args) {
-        String s1 = "dl";
-        String s2 = "world";
-        System.out.println(checkInclusion1(s1, s2));
-    }
 }

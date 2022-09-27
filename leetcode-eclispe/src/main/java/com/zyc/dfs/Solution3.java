@@ -1,10 +1,10 @@
-package com.zyc.day0718;
+package com.zyc.dfs;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Queue;
 
-public class Solution1 {
+public class Solution3 {
     /**
      * 542. 01矩阵,给定一个矩阵，返回一个新矩阵，新矩阵中每一个元素是旧矩阵中对应位置元素到0的最短距离。
      *
@@ -23,7 +23,7 @@ public class Solution1 {
         int row = mat.length, col = mat[0].length;
         int[][] ret = new int[row][col];// 结果数组
         boolean[][] flags = new boolean[row][col];// 标记数组
-        Queue<int[]> queue = new LinkedList<int[]>();
+        Queue<int[]> queue = new ArrayDeque<>();
         // 将所有的0添加进队列中
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < col; ++j) {

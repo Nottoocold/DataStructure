@@ -2,7 +2,7 @@ package com.zyc.binarysearch;
 
 import java.util.Arrays;
 
-public class Solution1 {
+public class SearchRange {
     /**
      * 二分查找
      *

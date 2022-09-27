@@ -1,20 +1,20 @@
-package com.zyc.day0709;
+package com.zyc.binarysearch;
 
 /*
  * 第一个错误的版本
  */
-public class Solution2 {
-    private static int bad;
+public class BadVersion {
+    private int bad;
 
-    public static void setBad(int x) {
+    public void setBad(int x) {
         bad = x;
     }
 
-    static boolean isBadVersion(int version) {
+    public boolean isBadVersion(int version) {
         return version >= bad;
     }
 
-    static int firstBadVersion(int n) {
+    public int firstBadVersion(int n) {
         int left = 1, right = n;
         int mid = (left + right) / 2;
         while (left < right) {
@@ -26,10 +26,5 @@ public class Solution2 {
             mid = (left + right) / 2;
         }
         return mid;
-    }
-
-    public static void main(String[] args) {
-        Solution2.setBad(4);
-        System.out.println(firstBadVersion(10));
     }
 }

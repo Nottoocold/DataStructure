@@ -1,4 +1,4 @@
-package com.zyc.day0716;
+package com.zyc.dfs;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -53,18 +53,17 @@ public class Solution1 {
     }
 
     //2.深度优先遍历
-    public static int[][] floodFill_DFS(int[][] image, int sr, int sc, int newColor) {
+    public static void floodFill_DFS(int[][] image, int sr, int sc, int newColor) {
         int old = image[sr][sc];
         if (old != newColor) {
             DFS(image, sr, sc, old, newColor);
         }
-        return image;
     }
 
     public static void main(String[] args) {
-        int image[][] = {{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
+        int[][] image = {{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
         //image = floodFill_BFS(image, 1, 1, 2);
-        image = floodFill_DFS(image, 1, 1, 2);
+        floodFill_DFS(image, 1, 1, 2);
         for (int[] row : image) {
             System.out.println(Arrays.toString(row));
         }

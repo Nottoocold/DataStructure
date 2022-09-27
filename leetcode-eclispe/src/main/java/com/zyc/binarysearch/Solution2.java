@@ -2,7 +2,6 @@ package com.zyc.binarysearch;
 
 /**
  * @author zyc
- * @see Solution4.java
  */
 public class Solution2 {
     /**
@@ -37,7 +36,7 @@ public class Solution2 {
      * @param target
      * @return
      */
-    public static int search(int[] nums, int target) {
+    public int search(int[] nums, int target) {
         int low = 0, high = nums.length - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
@@ -59,12 +58,4 @@ public class Solution2 {
         return -1;
     }
 
-    public static void main(String[] args) {
-        int[] nums1 = {10, 1, 2, 4, 5, 6, 7, 8, 9};
-        int[] nums2 = {6, 7, 8, 9, 10, 1, 2, 4, 5};
-        int[] nums3 = {34, 35, 36, 40, 50, 3, 23, 24, 25};
-        System.out.println(search(nums1, 4));
-        System.out.println(search(nums2, 1));
-        System.out.println(search(nums3, 24));
-    }
 }
