@@ -51,7 +51,7 @@ public class SearchTreePlus {
      */
     private <T> boolean Inorder(TreeNode<T> A, TreeNode<T> B) {
         if (A != null) {
-            if (A.val == B.val) { // 树A和树B的根节点相等
+            if (A.getVal() == B.getVal()) { // 树A和树B的根节点相等
                 if (compare(A, B)) // 比较其结构
                     return true;
             }
@@ -68,7 +68,7 @@ public class SearchTreePlus {
         if (A == null) {
             return false;
         }
-        return A.val == B.val && compare(A.left, B.left) && compare(A.right, B.right);
+        return A.getVal() == B.getVal() && compare(A.left, B.left) && compare(A.right, B.right);
     }
 
     private <T> boolean DFS_isSymmetric(TreeNode<T> p, TreeNode<T> q) {
@@ -76,7 +76,7 @@ public class SearchTreePlus {
             return true;
         if (p == null || q == null)
             return false;
-        return p.val == q.val && DFS_isSymmetric(p.left, q.right) && DFS_isSymmetric(p.right, q.left);
+        return p.getVal() == q.getVal() && DFS_isSymmetric(p.left, q.right) && DFS_isSymmetric(p.right, q.left);
     }
 
     private <T> boolean BFS_isSymmetric(TreeNode<T> p, TreeNode<T> q) {
@@ -88,7 +88,7 @@ public class SearchTreePlus {
             q = queue.poll();
             if (p == null && q == null)
                 return true;
-            if ((p == null || q == null) || p.val != q.val)
+            if ((p == null || q == null) || p.getVal() != q.getVal())
                 return false;
             queue.offer(p.left);
             queue.offer(q.right);

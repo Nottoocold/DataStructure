@@ -18,4 +18,8 @@ public class Node<E> {
         this.val = val;
     }
 
+    @Override
+    public String toString() {
+        return "val = " + val;
+    }
 }

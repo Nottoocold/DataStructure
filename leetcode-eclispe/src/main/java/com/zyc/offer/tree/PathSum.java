@@ -14,7 +14,7 @@ public class PathSum {
      * @return 所有可能的路径组合
      */
     public List<List<Integer>> pathSum(TreeNode<Integer> root, int target) {
-        if (root==null || root.val==target) {
+        if (root == null || root.getVal() == target) {
             return new ArrayList<>();
         }
         LinkedList<List<Integer>> listList = new LinkedList<>();
@@ -24,13 +24,13 @@ public class PathSum {
     }
 
     private void DFS(TreeNode<Integer> node, int target, LinkedList<List<Integer>> list, LinkedList<Integer> work) {
-        if (node==null) {
+        if (node == null) {
             return;
         }
-        work.add(node.val);
-        target -= node.val;
+        work.add(node.getVal());
+        target -= node.getVal();
         // 没有剩余且node是根节点
-        if (target==0 && node.left==null && node.right==null) {
+        if (target == 0 && node.left == null && node.right == null) {
             list.add(new LinkedList<>(work));
         }
         DFS(node.left, target, list, work);

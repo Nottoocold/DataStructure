@@ -10,8 +10,9 @@ public class KthLargest {
 
     /**
      * 二叉搜索树第k个大的节点
+     *
      * @param root 树根
-     * @param k 倒数第k个节点
+     * @param k    倒数第k个节点
      * @return 返回倒数第k个结果
      */
     public int kthLargest(TreeNode<Integer> root, int k) {
@@ -20,7 +21,7 @@ public class KthLargest {
     }
 
     private void inOrderTree(TreeNode<Integer> treeNode, int k) {
-        if (treeNode==null) {
+        if (treeNode == null) {
             return;
         }
 
@@ -28,7 +29,7 @@ public class KthLargest {
 
         count++;
         if (count == k) {
-            ret = treeNode.val;
+            ret = treeNode.getVal();
             return;
         }
 
@@ -36,11 +37,11 @@ public class KthLargest {
     }
 
     public TreeNode<Integer> binInsert(TreeNode<Integer> treeNode, int val) {
-        if (treeNode==null) {
+        if (treeNode == null) {
             return new TreeNode<>(val);
-        } else if (treeNode.val==val) {
+        } else if (treeNode.getVal() == val) {
             return treeNode;
-        } else if (treeNode.val > val) {
+        } else if (treeNode.getVal() > val) {
             treeNode.left = binInsert(treeNode.left, val);
             return treeNode;
         } else {
