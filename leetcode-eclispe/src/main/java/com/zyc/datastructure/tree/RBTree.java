@@ -67,12 +67,12 @@ public class RBTree<K, V> {
             if (cmp > 0) {
                 parent = p;
                 p = p.left;
-            } else if (cmp < 0) {
+            } else if (cmp <= 0) {
                 parent = p;
                 p = p.right;
-            } else {
+            } /*else {
                 throw new IllegalArgumentException("重复的Key:" + entry.getKey());
-            }
+            }*/
         }
         p = new RBNode<>(entry, parent, RBNode.Color.red);
         if (p.parent == null) {
@@ -411,7 +411,7 @@ public class RBTree<K, V> {
     }
 
     private RBNode<K, V> RightThenLeft(RBNode<K, V> node) {
-        node.right = rightRotate(node.left);
+        node.right = rightRotate(node.right);
         return leftRotate(node);
     }
 
