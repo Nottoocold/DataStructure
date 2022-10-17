@@ -1,5 +1,7 @@
 package com.zyc.offer.order;
 
+import com.zyc.datastructure.queue.MyPriorityQueue;
+
 public class LeastNumbers {
 
     /**
@@ -10,14 +12,14 @@ public class LeastNumbers {
      * @return k个数组成的数组
      */
     public int[] getLeastNumbers(int[] nums, int k) {
-        if ( k == 0){
+        if (k == 0) {
             return new int[k];
         }
-        MyPriorityQueueMax queueMax = new MyPriorityQueueMax(k);
+        MyPriorityQueue queueMax = new MyPriorityQueue(k);
         for (int i = 0; i < k; i++) {
             queueMax.add(nums[i]);
         }
-        for (int  i = k; i < nums.length ; ++i){
+        for (int i = k; i < nums.length; ++i) {
             if (queueMax.peek() > nums[i]) {
                 queueMax.poll();
                 queueMax.add(nums[i]);

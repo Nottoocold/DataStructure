@@ -2,7 +2,7 @@ package com.zyc.datastructure.tree;
 
 import com.zyc.datastructure.node.Node;
 
-public class AVLTreeNode<E> extends Node<E>  {
+public class AVLTreeNode<E> extends Node<E> {
 
     // 记录当前子树高度
     int height;
@@ -27,9 +27,6 @@ public class AVLTreeNode<E> extends Node<E>  {
 
     @Override
     public String toString() {
-        return "Node{" +
-                "val=" + super.getVal() +
-                ", height=" + height +
-                '}';
+        return "val=" + super.getVal() + ",height=" + height;
     }
 }

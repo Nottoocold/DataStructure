@@ -6,7 +6,7 @@ public class ArrayQueue<E> {
 
     private static final int DEFAULT = 1 << 4;
 
-    private static final int MAXSIZE = 1 << 12;
+    private static final int MAXSIZE = 1 << 10;
 
     private Object[] queue;
 
@@ -16,7 +16,7 @@ public class ArrayQueue<E> {
     private int head;
 
     /*
-        指向队尾元素
+        指向队尾元素的下一个位置，即将要插入的位置
      */
     private int tail;
 
@@ -25,11 +25,7 @@ public class ArrayQueue<E> {
     }
 
     public ArrayQueue(int size) {
-        if (size <= 0 || size > DEFAULT) {
-            queue = new Object[DEFAULT];
-        } else {
-            queue = new Object[size];
-        }
+        queue = new Object[size < 1 ? 1 : Math.min(size, MAXSIZE)];
         this.head = 0;
         this.tail = 0;
     }
@@ -37,11 +33,11 @@ public class ArrayQueue<E> {
     private void grow() {
         int old = queue.length;
         if (old >= MAXSIZE) {
-            throw new RuntimeException("太长");
+            throw new IllegalStateException("Sorry, deque too big");
         }
         int newCap = queue.length << 1;
         final Object[] es = queue = Arrays.copyOf(queue, newCap);
-        if (head==tail) {
+        if (head == tail) {
             System.arraycopy(es, head, es, old, old - head);
 
             System.arraycopy(es, 0, es, old * 2 - head, head);
@@ -51,15 +47,15 @@ public class ArrayQueue<E> {
         }
     }
 
-    private int cre(int index, int len) {
+    private static int increase(int index, int len) {
         if (++index >= len) index = 0;
         return index;
     }
 
     public void offer(E val) {
         queue[tail] = val;
-        tail = cre(tail, queue.length);
-        if (head==tail)
+        tail = increase(tail, queue.length);
+        if (head == tail)
             grow();
     }
 
@@ -69,12 +65,12 @@ public class ArrayQueue<E> {
         }
         @SuppressWarnings("unchecked")
         E val = (E) queue[head];
-        head = cre(head, queue.length);
+        head = increase(head, queue.length);
         return val;
     }
 
     public boolean isEmpty() {
-        return head==tail;
+        return head == tail;
     }
 
     public int size() {
@@ -89,9 +85,9 @@ public class ArrayQueue<E> {
 
     public void print() {
         int x = head;
-        while (x!=tail) {
+        while (x != tail) {
             System.out.print(queue[x] + "\t");
-            x = cre(x, queue.length);
+            x = increase(x, queue.length);
         }
         System.out.println();
     }

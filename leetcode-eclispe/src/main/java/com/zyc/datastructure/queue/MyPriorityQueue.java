@@ -1,21 +1,25 @@
-package com.zyc.offer.order;
+package com.zyc.datastructure.queue;
 
-public class MyPriorityQueueMax {
+/**
+ * 大根堆
+ */
+public class MyPriorityQueue {
     private int[] arr;
-    private int size ;
+    private int size;
 
-    private MyPriorityQueueMax(){
+    private MyPriorityQueue() {
 
     }
 
     /**
      * 构造一个带初始容量的大根堆,默认容量是10
+     *
      * @param cap 容量
      */
-    public MyPriorityQueueMax(int cap) {
+    public MyPriorityQueue(int cap) {
         if (cap <= 0 || cap > 100) {
             arr = new int[10];
-        }else {
+        } else {
             arr = new int[cap];
         }
         size = 0;

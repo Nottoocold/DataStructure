@@ -8,11 +8,15 @@ import java.util.*;
  *
  * @param <E>
  */
-public class AVLTree<E> {
+public class AVLTree<E extends Comparable<E>> {
 
     private AVLTreeNode<E> root;
 
-    private final Comparator<? super E> comparator;
+    private Comparator<? super E> comparator;
+
+    public AVLTree() {
+
+    }
 
     public AVLTree(Comparator<? super E> comparator) {
         this.comparator = comparator;
@@ -31,9 +35,9 @@ public class AVLTree<E> {
     }
 
     public Collection<E> collections() {
-        Collection<E> values = new ArrayList<>();
+        List<E> values = new ArrayList<>();
         InOrder(values, root);
-        return Collections.unmodifiableCollection(values);
+        return Collections.unmodifiableList(values);
     }
 
     public boolean isEmpty() {

@@ -1,9 +1,6 @@
 package com.zyc.datastructure.tree;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * 一种自平衡的二叉排序树
@@ -20,7 +17,7 @@ import java.util.Comparator;
 public class RBTree<K, V> {
 
     public void put(K key, V val) {
-        insert(root, key, val);
+        insert(this, key, val);
     }
 
     public boolean remove(K key) {
@@ -49,18 +46,18 @@ public class RBTree<K, V> {
     }
 
     public Collection<RBNode.Entry<K, V>> collections() {
-        Collection<RBNode.Entry<K, V>> entries = new ArrayList<>();
+        List<RBNode.Entry<K, V>> entries = new ArrayList<>();
         InOrder(entries, root);
-        return Collections.unmodifiableCollection(entries);
+        return Collections.unmodifiableList(entries);
     }
 
-    private void insert(RBNode<K, V> curNode, K k, V v) {
-        insert0(curNode, new RBNode.Entry<>(k, v));
+    private void insert(RBTree<K, V> tree, K k, V v) {
+        insert0(tree.root, new RBNode.Entry<>(k, v));
     }
 
     //
-    private void insert0(RBNode<K, V> node, RBNode.Entry<K, V> entry) {
-        RBNode<K, V> p = node, parent = null;
+    private void insert0(RBNode<K, V> root, RBNode.Entry<K, V> entry) {
+        RBNode<K, V> p = root, parent = null;
         int cmp = 0;
         while (p != null) {
             cmp = comparator.compare(p.entry.getKey(), entry.getKey());
@@ -70,15 +67,13 @@ public class RBTree<K, V> {
             } else if (cmp <= 0) {
                 parent = p;
                 p = p.right;
-            } /*else {
-                throw new IllegalArgumentException("重复的Key:" + entry.getKey());
-            }*/
+            }
         }
         p = new RBNode<>(entry, parent, RBNode.Color.red);
         if (p.parent == null) {
             // 新节点是根节点 染黑色直接返回
             p.color = RBNode.Color.black;
-            root = p;
+            this.root = p;
         } else {
             if (cmp > 0) {
                 parent.left = p;
@@ -126,29 +121,33 @@ public class RBTree<K, V> {
             }
             x.parent = x.left = x.right = null;
         } else if (x.left == null) {
+            // x一定是黑色,右孩子染黑色代替
             RBNode<K, V> xr = x.right;
             xr.parent = x.parent;
             xr.color = RBNode.Color.black;
-            if (x.parent.left == x) {
-                x.parent.left = xr;
-            } else {
-                x.parent.right = xr;
-            }
             if (root == x) {
                 root = xr;
+            } else {
+                if (x.parent.left == x) {
+                    x.parent.left = xr;
+                } else {
+                    x.parent.right = xr;
+                }
             }
             x.parent = x.right = null;
         } else if (x.right == null) {
+            // x一定是黑色，左孩子染黑色代替
             RBNode<K, V> xl = x.left;
             xl.parent = x.parent;
             xl.color = RBNode.Color.black;
-            if (x.parent.left == x) {
-                x.parent.left = xl;
-            } else {
-                x.parent.right = xl;
-            }
             if (root == x) {
                 root = xl;
+            } else {
+                if (x.parent.left == x) {
+                    x.parent.left = xl;
+                } else {
+                    x.parent.right = xl;
+                }
             }
             x.parent = x.left = null;
         } else {
@@ -157,7 +156,6 @@ public class RBTree<K, V> {
             while (xr.left != null) {
                 xr = xr.left;
             }
-//            x.entry = xr.entry;
             x.entry.setKey(xr.entry.getKey());
             x.entry.setVal(xr.entry.getVal());
             delete(xr);
@@ -166,15 +164,15 @@ public class RBTree<K, V> {
 
     private void deletionBlance(RBNode<K, V> x) {
         while (x != root && x.color == RBNode.Color.black) {
-            // x是其父节点的左孩子
             RBNode<K, V> brother = findBrother(x);
+            // x是其父节点的左孩子 case1
             if (x == x.parent.left) {
-                // 兄弟为红色
+                // 兄弟为红色 case1.1
                 if (brother.color == RBNode.Color.red) {
                     // 兄弟变成黑色，父节点变成红色
                     brother.color = RBNode.Color.black;
                     x.parent.color = RBNode.Color.red;
-                    // 父节点左旋，恢复左子树的黑色高度
+                    // 父节点左旋，恢复左子树的黑色高度 -> case1.2
                     RBNode<K, V> g = x.parent;
                     RBNode<K, V> after = leftRotate(x.parent);
                     delupdate(g, after);
@@ -182,7 +180,7 @@ public class RBTree<K, V> {
                     brother = x.parent.right;
                 }
 
-                // 兄弟为黑色 左右侄子也都是黑色
+                // 兄弟为黑色 左右侄子也都是黑色 case1.2
                 if ((brother.left == null || brother.left.color == RBNode.Color.black)
                         && (brother.right == null || brother.right.color == RBNode.Color.black)) {
                     // 兄弟变红色
@@ -190,7 +188,7 @@ public class RBTree<K, V> {
                     // 向上回溯调整
                     x = x.parent;
                 } else {
-                    // 兄弟是黑色 右侄子为黑色 则左侄子必为红色
+                    // 兄弟是黑色 左侄子为红色 右侄子为黑色 case1.3
                     if (brother.right == null || brother.right.color == RBNode.Color.black) {
                         // 左侄子变黑色 兄弟变红色 RL
                         brother.left.color = RBNode.Color.black;
@@ -201,7 +199,7 @@ public class RBTree<K, V> {
                         // 左侄子成为新兄弟
                         brother = x.parent.right;
                     }
-                    // 兄弟是黑色 左侄子是黑色 则右侄子必为红色
+                    // 兄弟是黑色 右侄子是红色 左侄子任意色 RR case1.4
                     // 兄弟变为父节点颜色
                     brother.color = x.parent.color;
                     // 父节点和右侄子都变黑色
@@ -214,22 +212,22 @@ public class RBTree<K, V> {
                     x = root;
                 }
             } else {
-                // x是其父节点的右孩子
+                // x是其父节点的右孩子 case2
 
-                // 兄弟为红色
+                // 兄弟为红色 case2.1
                 if (brother.color == RBNode.Color.red) {
                     // 兄弟变黑色，父亲变红色
                     brother.color = RBNode.Color.black;
                     x.parent.color = RBNode.Color.red;
                     RBNode<K, V> gf = x.parent;
-                    // 父亲右旋，恢复红黑色高度
+                    // 父亲右旋，恢复红黑色高度 -> case2.2
                     RBNode<K, V> after = rightRotate(x.parent);
                     delupdate(gf, after);
                     // 更新兄弟为右侄子
                     brother = x.parent.left;
                 }
 
-                // 兄弟为黑色 左右侄子都为黑色
+                // 兄弟为黑色 左右侄子都为黑色 case2.2
                 if ((brother.left == null || brother.left.color == RBNode.Color.black)
                         && (brother.right == null || brother.right.color == RBNode.Color.black)) {
                     // 兄弟变为红色
@@ -237,7 +235,7 @@ public class RBTree<K, V> {
                     // x指向父节点，继续进行调整
                     x = x.parent;
                 } else {
-                    // 兄弟是黑色 左侄子为黑色 右侄子为红色
+                    // 兄弟是黑色 左侄子为黑色 右侄子为红色 case2.1
                     if (brother.left == null || brother.left.color == RBNode.Color.black) {
                         // 右侄子变黑色，兄弟变红色
                         brother.right.color = RBNode.Color.black;
@@ -249,7 +247,7 @@ public class RBTree<K, V> {
                         brother = x.parent.left;
                     }
 
-                    // 兄弟是黑色 右侄子为黑色，左侄子为红色
+                    // 兄弟是黑色 右侄子为黑色，左侄子为红色 case2.2
                     // 兄弟改为父节点颜色
                     brother.color = x.parent.color;
                     // 父节点和左侄子变成黑色
@@ -436,11 +434,11 @@ public class RBTree<K, V> {
 
     private RBNode<K, V> root;
 
-    private final Comparator<? super K> comparator;
+    private Comparator<? super K> comparator;
 
-//    public RBTree() {
-//
-//    }
+    public RBTree() {
+
+    }
 
     public RBTree(Comparator<K> comparator) {
         this.comparator = comparator;
