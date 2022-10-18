@@ -1,7 +1,7 @@
 package com.zyc.datastructure.node;
 
 public class Node<E> {
-    E val;
+    protected E val;
 
     public Node() {
     }
@@ -20,6 +20,6 @@ public class Node<E> {
 
     @Override
     public String toString() {
-        return "val = " + val;
+        return "val=" + val;
     }
 }
