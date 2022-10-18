@@ -64,9 +64,11 @@ public class RBTree<K, V> {
             if (cmp > 0) {
                 parent = p;
                 p = p.left;
-            } else if (cmp <= 0) {
+            } else if (cmp < 0) {
                 parent = p;
                 p = p.right;
+            } else {
+                p.entry.setVal(entry.getVal());
             }
         }
         p = new RBNode<>(entry, parent, RBNode.Color.red);
