@@ -9,15 +9,16 @@ import java.util.NoSuchElementException;
 
 /**
  * 最好用于首尾添加删除的操作
+ *
  * @param <E>
  */
 public class DoubleLinkList<E> {
 
-    ListNode<E> first;
+    private ListNode<E> first;
 
-    ListNode<E> last;
+    private ListNode<E> last;
 
-    int size;
+    private int size;
 
     public int size() {
         return size;
@@ -39,7 +40,7 @@ public class DoubleLinkList<E> {
     }
 
     public E getFirst() {
-        if (first ==null) {
+        if (first == null) {
             throw new NoSuchElementException("First Pointer is null");
         }
         return first.getVal();
@@ -66,7 +67,7 @@ public class DoubleLinkList<E> {
     @Deprecated
     public void add(int pos, E val) {
         checkAdd(pos);
-        if (pos==1) {
+        if (pos == 1) {
             linkFirst(val);
         } else {
             linkBefore(node(pos - 1), val);
@@ -77,10 +78,10 @@ public class DoubleLinkList<E> {
     public E remove(int pos) {
         checkDel(pos);
         E e;
-        if (pos==1) {
+        if (pos == 1) {
             e = first.getVal();
             unlinkFirst(first);
-        } else if (pos==size) {
+        } else if (pos == size) {
             e = last.getVal();
             unlinkLast(last);
         } else {
@@ -91,7 +92,7 @@ public class DoubleLinkList<E> {
 
     public E removeLast() {
         final ListNode<E> l = this.last;
-        if (l==null) {
+        if (l == null) {
             throw new NoSuchElementException("Last Pointer is null");
         }
         return unlinkLast(l);
@@ -99,7 +100,7 @@ public class DoubleLinkList<E> {
 
     public E removeFirst() {
         final ListNode<E> f = this.first;
-        if (f==null) {
+        if (f == null) {
             throw new NoSuchElementException("First Pointer is null");
         }
         return unlinkFirst(f);
@@ -110,14 +111,14 @@ public class DoubleLinkList<E> {
     }
 
     private void checkAdd(int pos) {
-        if (size==0) return;
+        if (size == 0) return;
         if (pos <= 0 || pos > size) {
             throw new IllegalArgumentException("合法范围是" + 1 + "到" + size);
         }
     }
 
     private void checkDel(int pos) {
-        if (size==0 || pos <= 0 || pos > size) {
+        if (size == 0 || pos <= 0 || pos > size) {
             throw new IllegalArgumentException("pos 不合法");
         }
     }
@@ -142,15 +143,15 @@ public class DoubleLinkList<E> {
         E e = cur.getVal();
         ListNode<E> pre = cur.prev;
         ListNode<E> ne = cur.next;
-        if(pre == null) {
+        if (pre == null) {
             first = ne;
-        }else {
+        } else {
             pre.next = ne;
             cur.prev = null;
         }
         if (ne == null) {
             last = pre;
-        }else {
+        } else {
             ne.prev = pre;
             cur.next = null;
         }
@@ -163,7 +164,7 @@ public class DoubleLinkList<E> {
         E e = he.getVal();
         ListNode<E> ne = he.next;
         first = ne;
-        if (ne==null) {
+        if (ne == null) {
             last = null;
         } else {
             ne.prev = null;
@@ -176,7 +177,7 @@ public class DoubleLinkList<E> {
         E e = lp.getVal();
         ListNode<E> pre = lp.prev;
         last = pre;
-        if (pre==null) {
+        if (pre == null) {
             first = null;
         } else {
             pre.next = null;
@@ -188,9 +189,9 @@ public class DoubleLinkList<E> {
     private void linkBefore(ListNode<E> cur, E val) {
         ListNode<E> pre = cur.prev;
         ListNode<E> listNode = new ListNode<>(pre, val, cur);
-        if (pre ==null){
+        if (pre == null) {
             first = listNode;
-        }else {
+        } else {
             pre.next = listNode;
         }
         cur.prev = listNode;
@@ -201,7 +202,7 @@ public class DoubleLinkList<E> {
         final ListNode<E> front = this.first;
         final ListNode<E> listNode = new ListNode<>(null, val, front);
         first = listNode;
-        if (front==null) {
+        if (front == null) {
             last = listNode;
         } else {
             front.prev = listNode;
@@ -213,7 +214,7 @@ public class DoubleLinkList<E> {
         ListNode<E> rear = this.last;
         ListNode<E> listNode = new ListNode<>(rear, val, null);
         last = listNode;
-        if (rear==null) {
+        if (rear == null) {
             first = listNode;
         } else {
             rear.next = listNode;
@@ -224,14 +225,14 @@ public class DoubleLinkList<E> {
     public List<E> Collections() {
         List<E> list = new ArrayList<>();
         ListNode<E> p = first;
-        while (p!=null) {
+        while (p != null) {
             list.add(p.getVal());
             p = p.next;
         }
         return Collections.unmodifiableList(list);
     }
 
-    private static class ListNode<E> extends Node<E> {
+    static class ListNode<E> extends Node<E> {
         ListNode<E> prev;
         ListNode<E> next;
 
@@ -246,9 +247,7 @@ public class DoubleLinkList<E> {
 
         @Override
         public String toString() {
-            return "Node{" +
-                    "val=" + super.getVal() +
-                    '}';
+            return "val=" + super.getVal();
         }
     }
 }

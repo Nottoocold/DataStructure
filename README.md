@@ -6,5 +6,3 @@
 
 ### leetcode-eclipse/datastructure
 存放一些数据结构的相关实现
-
-其他目录是早期刷题的记录

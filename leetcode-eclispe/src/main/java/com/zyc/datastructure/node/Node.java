@@ -1,6 +1,8 @@
 package com.zyc.datastructure.node;
 
-public class Node<E> {
+import java.util.Objects;
+
+public abstract class Node<E> {
     protected E val;
 
     public Node() {
@@ -20,6 +22,21 @@ public class Node<E> {
 
     @Override
     public String toString() {
-        return "val=" + val;
+        return val.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Node<?> node = (Node<?>) o;
+
+        return Objects.equals(val, node.val);
+    }
+
+    @Override
+    public int hashCode() {
+        return val != null ? val.hashCode() : 0;
     }
 }
