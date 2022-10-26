@@ -8,7 +8,7 @@ public class AddStr {
      * @param num2
      * @return
      */
-    private static String addStrings(String num1, String num2) {
+    public static String addStrings(String num1, String num2) {
         int i = num1.length() - 1, j = num2.length() - 1;
         int add = 0;// 进位标志
         StringBuilder bf = new StringBuilder();

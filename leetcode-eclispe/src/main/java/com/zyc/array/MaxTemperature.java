@@ -9,15 +9,7 @@ import java.util.Deque;
  * @date 2022/10/8
  */
 public class MaxTemperature {
-    static final MaxTemperature in = new MaxTemperature();
-
-    public static void main(String[] args) {
-        int[] arr = {73, 74, 75, 71, 69, 72, 76, 73};
-        int[] results = in.dailyTemperatures(arr);
-        int[] res = in.byStack(arr);
-        System.out.println(Arrays.toString(results));
-        System.out.println(Arrays.toString(res));
-    }
+    public static final MaxTemperature in = new MaxTemperature();
 
     /**
      * @param temperatures 温度数组

@@ -30,4 +30,24 @@ public class MoveZeros {
         }
     }
 
+    public void moveZeroes_1(int[] nums) {
+        int len = nums.length, l = 0, r, tmp;
+        while (nums[l] != 0) {
+            ++l;
+        }
+        r = l + 1;
+        while (r < len && nums[r] == 0) {
+            ++r;
+        }
+        while (r < len) {
+            if (nums[r] != 0) {
+                tmp = nums[l];
+                nums[l] = nums[r];
+                nums[r] = tmp;
+                l++;
+            }
+            r++;
+        }
+    }
+
 }
