@@ -32,7 +32,7 @@ public class MoveZeros {
 
     public void moveZeroes_1(int[] nums) {
         int len = nums.length, l = 0, r, tmp;
-        while (nums[l] != 0) {
+        while (l < len && nums[l] != 0) {
             ++l;
         }
         r = l + 1;
