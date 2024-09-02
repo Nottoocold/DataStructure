@@ -1,11 +1,6 @@
 package com.zqqiliyc.datastructure.list.array;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class SparseArray {
     private final Random random = new Random();
