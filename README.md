@@ -2,7 +2,10 @@
 数据结构与算法
 
 ### leetcode-eclipse 目录
-存放leetcode刷题记录和笔记注释
+根模块
 
-### leetcode-eclipse/datastructure
+### leetcode-datastructure
 存放一些数据结构的相关实现
+
+### leetcode-alg
+存放一些刷题题解及笔记
