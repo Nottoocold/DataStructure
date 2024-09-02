@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>leetcode-alg</artifactId>
+    <artifactId>leetcode-datastruct</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,12 +18,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.zqqiliyc</groupId>
-            <artifactId>leetcode-datastruct</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

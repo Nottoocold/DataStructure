@@ -1,6 +1,6 @@
 package com.zqqiliyc.offer.order;
 
-import com.zqqiliyc.datastructure.queue.MyPriorityQueue;
+import com.zqqiliyc.datastruct.queue.MyPriorityQueue;
 
 public class LeastNumbers {
 

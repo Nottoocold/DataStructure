@@ -1,6 +1,6 @@
 package com.zqqiliyc.offer.order;
 
-import com.zqqiliyc.datastructure.sort.SimpleArraySort;
+import com.zqqiliyc.datastruct.sort.SimpleArraySort;
 
 public class StraightInPoker {
 

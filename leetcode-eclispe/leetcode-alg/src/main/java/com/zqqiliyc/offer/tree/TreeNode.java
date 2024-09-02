@@ -1,6 +1,6 @@
 package com.zqqiliyc.offer.tree;
 
-import com.zqqiliyc.datastructure.node.Node;
+import com.zqqiliyc.datastruct.node.Node;
 
 public class TreeNode<E> extends Node<E> {
 

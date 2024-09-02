@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <modules>
-        <module>leetcode-datastruce</module>
+        <module>leetcode-datastruct</module>
         <module>leetcode-alg</module>
     </modules>
 

@@ -1,6 +1,6 @@
 package com.zqqiliyc.offer;
 
-import com.zqqiliyc.datastructure.sort.SimpleArraySort;
+import com.zqqiliyc.datastruct.sort.SimpleArraySort;
 
 import java.util.HashSet;
 import java.util.Set;
